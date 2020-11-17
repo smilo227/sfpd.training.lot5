@@ -14,7 +14,7 @@ import io.hackages.learning.model.Product;
 import io.hackages.learning.dao.ProductDao;
 
 @TestMethodOrder(OrderAnnotation.class)
-public class HibernateTest {
+public class BasicTest {
 
 	private static ProductDao productDao;
 	

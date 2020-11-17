@@ -19,6 +19,7 @@
         <module>00.sample.hibernate.dao</module>
         <module>00.sample.hibernate.jpa</module>
         <module>00.sample.hibernate.starter</module>
+        <module>day1.hibernate.workshop</module>
     </modules>
 
     <dependencies>
