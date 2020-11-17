@@ -31,6 +31,7 @@ public class ClientDao {
     }
 
     public List < Client > getClients() {
+
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Client", Client.class).list();
         }

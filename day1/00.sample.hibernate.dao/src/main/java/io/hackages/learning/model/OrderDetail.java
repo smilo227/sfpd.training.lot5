@@ -5,22 +5,23 @@ import java.util.List;
 
 @Entity
 @Table(name="orderDetails")
-public class OrderDetails {
+public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany
-    private List<Product> product;
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
 
     @Column
     private Integer quantity;
 
-    public OrderDetails() {
+    public OrderDetail() {
     }
 
-    public OrderDetails(List<Product> product, Integer quantity) {
+    public OrderDetail(Product product, Integer quantity) {
         this.product = product;
         this.quantity = quantity;
     }
@@ -33,11 +34,11 @@ public class OrderDetails {
         this.id = id;
     }
 
-    public List<Product> getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(List<Product> product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 
@@ -48,4 +49,6 @@ public class OrderDetails {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+
 }

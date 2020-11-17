@@ -2,14 +2,13 @@ package io.hackages.learning;
 
 import io.hackages.learning.dao.ClientDao;
 import io.hackages.learning.dao.OrderDao;
-import io.hackages.learning.dao.OrderDetailsDao;
 import io.hackages.learning.dao.ProductDao;
 import io.hackages.learning.model.*;
-import io.hackages.learning.model.Order;
+import io.hackages.learning.model.CustomerOrder;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
-import javax.swing.plaf.basic.BasicListUI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +21,12 @@ public class ExerciceTest {
 	private static ProductDao productDao;
 	private static ClientDao clientDao;
 	private static OrderDao orderDao;
-	private static OrderDetailsDao orderDetailsDao;
 
 	@BeforeAll
 	public static void setup() {
 		productDao = new ProductDao();
+		clientDao = new ClientDao();
+		orderDao = new OrderDao();
 		System.out.println("Dao created");
 	}
 	
@@ -40,7 +40,7 @@ public class ExerciceTest {
 		System.out.println("Running testCreate...");
 		
 		Product product = new Product("my Phone v1", 699);
-		Integer id = (Integer) productDao.saveProduct(product);
+		Integer id = productDao.saveProduct(product);
 		
 		assertTrue(id > 0);
 	}
@@ -59,52 +59,38 @@ public class ExerciceTest {
 	public void testCreate2() {
 		System.out.println("Running testCreate...");
 
-		Product product1 = new Product("cat", 699);
-		Product product2 = new Product("dog", 123);
-		Product product3 = new Product("bird", 45);
-		product1.setProductCategory(ProductCategory.CAT_FOOD);
-		product2.setProductCategory(ProductCategory.DOG_FOOD);
-		product3.setProductCategory(ProductCategory.BIRD_FOOD);
-		Integer id = (Integer) productDao.saveProduct(product1);
-		Integer id2 = (Integer) productDao.saveProduct(product2);
-		Integer id3 = (Integer) productDao.saveProduct(product3);
+		Product product1 = new Product("cat", 699,ProductCategory.CAT_FOOD);
+		Product product2 = new Product("dog", 123,ProductCategory.DOG_FOOD);
+		Product product3 = new Product("bird", 45,ProductCategory.BIRD_FOOD);
+		productDao.saveProduct(product1);
+		productDao.saveProduct(product2);
+		productDao.saveProduct(product3);
+		List<Product> products = productDao.getProducts();
+		assertEquals(products.size(), 3);
+
 		Client jane = new Client("jane", "janedoe@dfg");
 		Client johndoe = new Client("John",  "johndoe@sedfzsefg");
 
-		Integer janeID = clientDao.saveClient(jane);
-		Integer johnId = clientDao.saveClient(johndoe);
 
+		List<Client> clients = clientDao.getClients();
+		assertTrue(clients.isEmpty());
+
+		clientDao.saveClient(jane);
+		clientDao.saveClient(johndoe);
+		assertEquals(clients.size(),2);
 		// First part of challenge
 
 		// 2nd part : Add Orders
-		List<Order> orderFroClientJane = new ArrayList<>();
-		ArrayList<Product> products = new ArrayList<>();
-		products.add(product1);
+		OrderDetail orderDetail1 = new OrderDetail(products.get(0), 10);
+		OrderDetail orderDetail2 = new OrderDetail(products.get(1), 10);
+		OrderDetail orderDetail3 = new OrderDetail(products.get(2), 10);
 
-		// Order order = new Order(jane, "Jane's order", List new OrderDetails(products, 50));
-		Order order = new Order(jane, "Jane's order", ListOfOrderDetails );
-		orderFroClientJane.add(order);
 
-		ArrayList<Product> products2 = new ArrayList<>();
-		products2.add(product3);
-		products2.add(product2);
-		List<Order> ordersForClientJohn = new ArrayList<>();
-		ordersForClientJohn.add(new Order(johndoe,"johndoe's order",new OrderDetails(products2,20)));
-		ordersForClientJohn.add(new Order(johndoe,"johndoe's order",new OrderDetails(products2,30)));
+		CustomerOrder orderForCustomer1 = new CustomerOrder(clients.get(0), RandomStringUtils.randomAlphanumeric(15));
+		orderForCustomer1.addOrderDetail(orderDetail1);
+		orderForCustomer1.addOrderDetail(orderDetail2);
+		orderForCustomer1.addOrderDetail(orderDetail3);
 
-		/* One way
-		jane.setOrders(orderFroClientJane);
-		johndoe.setOrders(ordersForClientJohn);
-		clientDao.updateClient(jane); // using Cascade
-		 */
-
-		/* Another way
-		orderDao.saveOrder(orderFroClientJane.get(0));
-		orderDao.saveOrder(ordersForClientJohn.get(0));
-		orderDao.saveOrder(ordersForClientJohn.get(1));
-		*/
-
-		assertEquals(clientDao.getClients().get(1).getOrders().size(), johndoe.getOrders().size());
 	}
 
 }

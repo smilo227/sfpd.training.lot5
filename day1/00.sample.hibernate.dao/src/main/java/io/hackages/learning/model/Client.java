@@ -20,9 +20,9 @@ public class Client {
     @Column(name=("emailAddress"))
     private String emailAddress;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "customerOrders")
     @JoinColumn(name ="id")
-    private List<Order> orders;
+    private List<CustomerOrder> customerOrders;
 
     public Client() {
     }
@@ -64,11 +64,11 @@ public class Client {
         this.emailAddress = emailAddress;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<CustomerOrder> getOrders() {
+        return customerOrders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrders(List<CustomerOrder> customerOrders) {
+        this.customerOrders = customerOrders;
     }
 }

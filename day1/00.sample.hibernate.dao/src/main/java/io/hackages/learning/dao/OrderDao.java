@@ -1,7 +1,6 @@
 package io.hackages.learning.dao;
 
-import io.hackages.learning.model.Client;
-import io.hackages.learning.model.Order;
+import io.hackages.learning.model.CustomerOrder;
 import io.hackages.learning.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,13 +9,13 @@ import java.util.List;
 
 public class OrderDao {
     
-    public Integer saveOrder(Order order) {
+    public Integer saveOrder(CustomerOrder customerOrder) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // save the product object
-            Integer id = (Integer) session.save(order);
+            Integer id = (Integer) session.save(customerOrder);
             // commit transaction
             transaction.commit();
 
@@ -30,9 +29,9 @@ public class OrderDao {
         return null;
     }
 
-    public List < Order > getOrders() {
+    public List <CustomerOrder> getOrders() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Order", Order.class).list();
+            return session.createQuery("from CustomerOrder", CustomerOrder.class).list();
         }
     }
 }

@@ -1,11 +1,6 @@
 package io.hackages.learning.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -23,11 +18,14 @@ public class Product {
 	@Column
 	private float price;
 
-	private LocalDate createdAt;
-
-	private LocalDateTime updatedAt;
-
+	@Enumerated(EnumType.STRING)
+	@Column
 	private ProductCategory productCategory;
+
+	@Column
+	private LocalDate createdAt;
+	@Column
+	private LocalDateTime updatedAt;
 
 	public Product() {
 		createdAt = LocalDate.now();
@@ -36,18 +34,14 @@ public class Product {
 
 	public Product(String name, float price) {
 
-		this(null, name, price);
-	}
-
-	public Product(Integer id) {
-		this.id = id;
+		this(name, price, ProductCategory.CAT_FOOD);
 	}
 	
-	public Product(Integer id, String name, float price) {
+	public Product(String name, float price,ProductCategory productCategory) {
 		this();
-		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.productCategory = productCategory;
 	}
 
 	public Integer getId() {
@@ -81,4 +75,5 @@ public class Product {
 	public void setProductCategory(ProductCategory productCategory) {
 		this.productCategory = productCategory;
 	}
+
 }

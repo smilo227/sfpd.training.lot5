@@ -33,14 +33,14 @@ Here is the subject
 1. The company offers Products. Each product has a name, description, regular price ... 
 1. The product categories are CAT_FOOD, DOG_FOOD, BIRD_FOOD
 1. The company's clients are registered with a alias and an email address ... 
-1. A client's order contains at least 1 product and the purchase date 
-1. For each completed order an invoice is generated 
+1. A client's customerOrder contains at least 1 product and the purchase date 
+1. For each completed customerOrder an invoice is generated 
 
 ### What is expected ? 
 * Test a service (with your own dummy data) that initialize the db with :  
     * At least 3 products (1 per category)
     * At least 2 clients
-* Test a service that handles clients orders
+* Test a service that handles clients customerOrders
 * Test a service that verifies the content of generated invoices, use Criteria
 * After adding more dummy data, Test a service that evaluates the most purchased product
     
