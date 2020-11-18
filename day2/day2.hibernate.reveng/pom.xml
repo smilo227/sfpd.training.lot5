@@ -11,7 +11,7 @@
 
     <artifactId>day2.hibernate.reveng</artifactId>
     <properties>
-        <hibernate.version>6.0.0-SNAPSHOT</hibernate.version>
+        <hibernate.version>6.0.0.Alpha1</hibernate.version>
     </properties>
 
     <build>
