@@ -38,7 +38,7 @@
                         </component>
                     </components>
                     <componentProperties>
-                        <revengfile>src/main/resources/reveng.xml</revengfile>
+                        <revengfile>src/main/resources/reverse-engineering-config.xml</revengfile>
                         <propertyfile>src/main/resources/hibernate.properties</propertyfile>
                         <packagename>io.hackages.learning.entity</packagename>
                         <ejb3>true</ejb3>
