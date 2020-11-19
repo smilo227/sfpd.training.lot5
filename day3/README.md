@@ -28,51 +28,33 @@
     1. Run the using command for POJO generation : `mvn clean install`  
     1. Check the generated classes
 
-1. Create a new module
-    * Build and publish a SOAP web Service based on the data modeled from Day 1 Workshop
-    * We can use static data at first (without Hibernate configured)
-    * Test the WSDL url in a web browser
-```java
-// Publisher class 
-import jakarta.xml.ws.Endpoint;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class SampleServicePublisher {
-    
-    private static final Logger logger = LoggerFactory.getLogger(SampleServicePublisher.class);
-    
-    public static void main(String[] args) {
-        Endpoint endpoint = Endpoint.create(new SampleServiceImpl());
-        endpoint.publish("http://localhost:8888/ws/sample");
-        
-        logger.info("Sample web service ready to consume requests!");
-    }
-}
-
-// Service class 
-
-import jakarta.jws.WebService;
-
-@WebService(endpointInterface = "io.hackages.learning.soap.ws.server.SampleService")
-public class SampleServiceImpl implements SampleService {
-
-    @Override
-    public SampleObject findByName(String name) {
-        return new SampleObject();
-    }
-
-}
-```
+* Build and publish a SOAP web Service based on the data modeled from Day 1 Workshop
+    1. Metro is a high-performance, extensible, easy-to-use web service stack
+    1. Create a new module from JAX-WS reference implementation (Glassfish Metro)
+    1. Apply the data model previously worked on Day 1 
+    1. Test the WSDL url in a web browser
+    1. Test with a client module from  
 
 ### Online resources 
-* [API Documentation](https://javaee.github.io/tutorial/webservices-intro002.html)
-* [Jakarta XML Web Services - GitHub Pages](https://eclipse-ee4j.github.io/metro-jax-ws/2.3.3/docs/ch03.html)
+* [Importing SoapUI projects into Postman](https://blog.postman.com/importing-soapui-projects-into-postman/)
+
+* [Developing Web Services with Glassfish](https://glassfish.org/docs/5.1.0/application-development-guide/webservices.html)
+
+* [Jakarta XML Web Services](https://javaee.github.io/metro-jax-ws/)
+* [Eclipse Implementation of Jakarta XML Web Services - Project Page](https://github.com/eclipse-ee4j/metro-jax-ws)
 
 ## Workshop 3 : Arquillian
 
+Arquillian is an innovative and highly extensible testing platform for the JVM that enables developers to easily create automated integration, functional and acceptance tests for Java middleware.
+
+* Fork or clone this repository https://github.com/robertpanzer/persistence-test 
+    * Check the documentation and configuration
+    * Run the Test classes
+    * Try to switch to an embedded TomEE http://tomee.apache.org/arquillian-available-adapters.html
 
 ### Online resources 
-* [Jakarta EE8 starter](https://github.com/hantsy/jakartaee8-starter)
-* [Article about the starter](https://medium.com/swlh/testing-jakarta-ee-8-applications-9ca250da20e3)
+* [Guide to SOA](https://www.xenonstack.com/insights/service-oriented-architecture/)
+
+* [WebServices Github Documentation](https://javaee.github.io/tutorial/webservices-intro002.html)
+
+* [Jakarta XML Web Services - GitHub Pages](https://eclipse-ee4j.github.io/metro-jax-ws/2.3.3/docs/ch03.html)
